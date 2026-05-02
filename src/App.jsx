@@ -388,9 +388,36 @@ function App() {
         </section>
       </main>
 
-      <footer>
-        <span>Fuzhou Garden</span>
-        <span>© 2026 · Paleo Faliro, Athens</span>
+      <footer className="site-footer">
+        <div className="footer-main">
+          <a className="footer-brand" href="#top" aria-label="Fuzhou Garden home">
+            <img src="/fuzhou-garden-logo.jpg" alt="" />
+            <span>
+              <strong>Fuzhou Garden</strong>
+              <small>Premium Chinese kitchen</small>
+            </span>
+          </a>
+
+          <div className="footer-columns">
+            <div>
+              <span className="footer-label">Visit</span>
+              <p>Leof. Agias Varvaras 60<br />Paleo Faliro, Athens</p>
+            </div>
+            <div>
+              <span className="footer-label">Hours</span>
+              <p>Mon-Fri 12:00-23:00<br />Sat 12:00-24:00<br />Sun 12:00-23:00</p>
+            </div>
+            <div>
+              <span className="footer-label">Reserve</span>
+              <p><a href="tel:+30210XXXXXXX">Call for a table</a><br /><a href="https://www.instagram.com/fuzhou.garden" target="_blank" rel="noreferrer">@fuzhou.garden</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <span>(c) 2026 Fuzhou Garden</span>
+          <span>Paleo Faliro - Athens</span>
+        </div>
       </footer>
     </>
   )
