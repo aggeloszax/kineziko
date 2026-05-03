@@ -2,64 +2,10 @@ import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 import SplashScreen from './SplashScreen'
 import logo from '/fuzhou-garden-logo.jpg'
+import { useLanguage } from './context/LanguageContext'
+import LanguageToggle from './components/LanguageToggle'
 
-const navItems = [
-  ['about', 'About'],
-  ['menu', 'Menu'],
-  ['reviews', 'Reviews'],
-  ['contact', 'Visit'],
-]
-
-const menu = {
-  starters: {
-    label: 'Starters',
-    items: [
-      ['Spring Rolls', 'Crisp vegetable rolls, sweet chili, fresh herbs', '6.50'],
-      ['Handmade Gyoza', 'Pork, cabbage, ginger, soy dipping sauce', '7.50'],
-      ['Fried Wonton', 'Shrimp wonton, plum sauce, sesame', '7.00'],
-      ['Fuzhou Salad', 'Lotus root, greens, tofu, toasted sesame dressing', '6.00'],
-    ],
-  },
-  soups: {
-    label: 'Soups',
-    items: [
-      ['Wonton Soup', 'Chicken broth, shrimp wonton, spring onion', '7.00'],
-      ['Hot & Sour', 'Tofu, mushroom, egg, black vinegar, white pepper', '6.50'],
-      ['Tom Yum Prawns', 'Lemongrass, galangal, chili, lime leaf', '8.00'],
-      ['Miso Soup', 'Silken tofu, wakame, scallion', '4.00'],
-    ],
-  },
-  mains: {
-    label: 'Mains',
-    items: [
-      ['Peking Duck', 'Pancakes, cucumber, scallion, hoisin', '22.00'],
-      ['Kung Pao Chicken', 'Cashew, pepper, chili, dark soy glaze', '11.50'],
-      ['Beef & Broccoli', 'Tender beef, oyster sauce, wok greens', '13.00'],
-      ['Mapo Tofu', 'Soft tofu, doubanjiang, aromatic chili oil', '10.00'],
-    ],
-  },
-  noodles: {
-    label: 'Noodles & Rice',
-    items: [
-      ['Chicken Lo Mein', 'Egg noodles, seasonal vegetables, soy', '9.50'],
-      ['Special Fried Rice', 'Egg, shrimp, pork, vegetables, scallion', '10.00'],
-      ['Pad Thai', 'Rice noodles, prawns, tamarind, peanut', '11.00'],
-      ['Fuzhou Ramen', 'Pork broth, noodles, egg, chashu', '12.00'],
-    ],
-  },
-}
-
-const highlights = [
-  ['Wok-fired', 'High heat, fast service, deep aroma.'],
-  ['Fresh daily', 'Seafood, vegetables, broths and sauces prepared in house.'],
-  ['Paleo Faliro', 'Warm dining room on Leof. Agias Varvaras 60.'],
-]
-
-const reviews = [
-  ['Maria K.', 'The dumplings taste handmade and the wonton soup is exactly what I want on a quiet evening.'],
-  ['Nikos P.', 'Consistent food, kind service, and the Peking duck is the table favorite every time.'],
-  ['Elena T.', 'Elegant, relaxed, and very fair for the quality. This became our neighborhood Chinese spot.'],
-]
+const NAV_IDS = ['about', 'menu', 'reviews', 'contact']
 
 function InstagramIcon() {
   return (
@@ -78,13 +24,14 @@ function PhoneIcon() {
 }
 
 function WokVisual() {
+  const { t } = useLanguage()
   return (
-    <div className="premium-wok-scene" aria-label="Handmade baozi presentation">
+    <div className="premium-wok-scene" aria-label={t('hero.note')}>
       <div className="wok-outer-glow" />
       <div className="wok-frame">
         <div className="wok-inner">
           <svg className="baozi-svg" viewBox="0 0 400 400" role="img" aria-labelledby="baozi-title">
-            <title id="baozi-title">Premium handmade steamed baozi with rising steam</title>
+            <title id="baozi-title">{t('baozi_title')}</title>
             <defs>
               <radialGradient id="baoziSurface" cx="38%" cy="30%" r="70%">
                 <stop offset="0%" stopColor="#faf6f0" />
@@ -125,47 +72,34 @@ function WokVisual() {
               </filter>
             </defs>
 
-            {/* Ambient heat pool */}
             <ellipse cx="200" cy="334" rx="98" ry="22" fill="url(#heatGlowAmber)" />
 
-            {/* Parchment paper */}
             <g filter="url(#parchShadow)">
               <rect x="112" y="276" width="176" height="50" rx="3" fill="url(#parchmentGrad)" />
               <line x1="162" y1="277" x2="160" y2="325" stroke="rgba(172,152,128,0.2)" strokeWidth="0.8" />
               <line x1="238" y1="277" x2="240" y2="325" stroke="rgba(172,152,128,0.2)" strokeWidth="0.8" />
             </g>
 
-            {/* Base shadow ellipse under dome */}
             <ellipse cx="200" cy="280" rx="88" ry="11" fill="rgba(0,0,0,0.22)" />
 
-            {/* Baozi dome */}
             <path
               className="baozi-dome"
               d="M 116 276 C 107 252 104 210 114 174 C 124 142 146 122 174 114 C 186 110 194 108 202 108 C 212 108 222 113 238 124 C 258 140 276 164 284 196 C 292 225 292 260 288 276 C 256 291 144 291 116 276 Z"
               fill="url(#baoziSurface)"
               filter="url(#baoziTexture)"
             />
-
-            {/* Subsurface scattering */}
             <path
               d="M 116 276 C 107 252 104 210 114 174 C 124 142 146 122 174 114 C 186 110 194 108 202 108 C 212 108 222 113 238 124 C 258 140 276 164 284 196 C 292 225 292 260 288 276 C 256 291 144 291 116 276 Z"
               fill="url(#subSurface)"
             />
-
-            {/* Specular highlight — upper-left lit oval */}
             <ellipse
               className="baozi-specular"
-              cx="165"
-              cy="162"
-              rx="46"
-              ry="28"
-              fill="#ffffff"
-              fillOpacity="0.62"
+              cx="165" cy="162" rx="46" ry="28"
+              fill="#ffffff" fillOpacity="0.62"
               filter="url(#specularBlur)"
               transform="rotate(-22 165 162)"
             />
 
-            {/* Pleats radiating from twist center */}
             <g stroke="rgba(168,144,114,0.66)" fill="none" strokeLinecap="round">
               <path d="M 202 112 Q 188 123 174 146" strokeWidth="1.9" />
               <path d="M 202 112 Q 184 116 168 130" strokeWidth="1.7" />
@@ -177,11 +111,8 @@ function WokVisual() {
               <path d="M 202 112 Q 220 111 235 120" strokeWidth="1.5" />
               <path d="M 202 112 Q 220 121 230 138" strokeWidth="1.7" />
             </g>
-
-            {/* Twist center nub */}
             <circle cx="202" cy="112" r="3.8" fill="rgba(148,120,90,0.75)" />
 
-            {/* Steam wisps */}
             <g filter="url(#steamBlur)">
               <path className="steam-wisp steam-wisp-1" d="M 186 104 C 177 83 196 64 181 44 C 170 30 175 20 173 12" />
               <path className="steam-wisp steam-wisp-2" d="M 200 100 C 217 79 192 58 211 38 C 222 24 215 14 209 6" />
@@ -192,13 +123,15 @@ function WokVisual() {
         </div>
       </div>
       <div className="hero-note">
-        <span>Handmade dim sum</span>
+        <span>{t('hero.note')}</span>
       </div>
     </div>
   )
 }
 
 function App() {
+  const { t, tr, fading } = useLanguage()
+
   const [splashDone, setSplashDone] = useState(
     () => sessionStorage.getItem('splash_seen') === '1'
   )
@@ -206,7 +139,11 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeCategory, setActiveCategory] = useState('starters')
 
-  const activeMenu = useMemo(() => menu[activeCategory], [activeCategory])
+  const menuCategories = tr.menu.categories
+  const activeMenuItems = useMemo(
+    () => menuCategories[activeCategory]?.items ?? [],
+    [menuCategories, activeCategory]
+  )
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -220,239 +157,247 @@ function App() {
     return () => document.body.classList.remove('nav-open')
   }, [menuOpen])
 
+  const tickerItems = [...tr.ticker, ...tr.ticker]
+
   return (
     <>
       {!splashDone && (
         <SplashScreen logo={logo} name="Fuzhou Garden" onComplete={() => setSplashDone(true)} />
       )}
       <div style={{ opacity: splashDone ? 1 : 0, transition: 'opacity 0.5s ease' }}>
-      <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
-        <a className="brand" href="#top" aria-label="Fuzhou Garden home">
-          <img className="brand-logo" src="/fuzhou-garden-logo.jpg" alt="" />
-          <span>
-            <strong>Fuzhou Garden</strong>
-            <small>Chinese &amp; Sushi Restaurant</small>
-          </span>
-        </a>
+        <div style={{ opacity: fading ? 0.3 : 1, transition: 'opacity 0.2s ease' }}>
 
-        <button
-          className="menu-toggle"
-          type="button"
-          aria-label="Toggle navigation"
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((value) => !value)}
-        >
-          <span />
-          <span />
-        </button>
-
-        <nav className="site-nav" aria-label="Primary navigation">
-          {navItems.map(([id, label]) => (
-            <a key={id} href={`#${id}`} onClick={() => setMenuOpen(false)}>
-              {label}
-            </a>
-          ))}
-          <span className="nav-actions">
-            <a className="nav-call" href="tel:+30210XXXXXXX" onClick={() => setMenuOpen(false)}>
-              <PhoneIcon />
-              <span>Call</span>
-            </a>
-            <a
-              className="nav-action"
-              href="https://www.instagram.com/fuzhou.garden"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Fuzhou Garden on Instagram"
-            >
-              <InstagramIcon />
-            </a>
-          </span>
-        </nav>
-      </header>
-
-      <main id="top">
-        <section className="hero section-pad">
-          <div className="hero-copy">
-            <p className="eyebrow">Paleo Faliro · Athens</p>
-            <h1>Premium Chinese dining with a warm neighborhood soul.</h1>
-            <p className="hero-text">
-              Traditional Fuzhou-inspired cooking, handmade starters, wok classics, and calm hospitality in
-              the heart of Paleo Faliro.
-            </p>
-            <div className="hero-actions">
-              <a className="button primary" href="#menu">View menu</a>
-              <a className="button secondary" href="#contact">Plan a visit</a>
-            </div>
-          </div>
-
-          <div className="hero-visual">
-            <WokVisual />
-          </div>
-        </section>
-
-        <section className="ticker" aria-label="Restaurant specialties">
-          <div>
-            <span>Dim sum</span>
-            <span>Wonton soup</span>
-            <span>Peking duck</span>
-            <span>Fresh noodles</span>
-            <span>Fried rice</span>
-            <span>Kung pao</span>
-            <span>Dim sum</span>
-            <span>Wonton soup</span>
-          </div>
-        </section>
-
-        <section className="about section-pad" id="about">
-          <div>
-            <p className="eyebrow">The house</p>
-            <h2>Built for generous tables, clean flavors, and repeat visits.</h2>
-          </div>
-          <div className="about-body">
-            <p>
-              Fuzhou Garden brings together polished service and comforting Chinese cooking: fragrant broths,
-              crisp textures, balanced sauces, and dishes made to share.
-            </p>
-            <div className="highlight-grid">
-              {highlights.map(([title, text]) => (
-                <article className="highlight" key={title}>
-                  <strong>{title}</strong>
-                  <span>{text}</span>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="menu section-pad" id="menu">
-          <div className="section-heading">
-            <p className="eyebrow">Menu</p>
-            <h2>House favorites, edited for easy choosing.</h2>
-          </div>
-
-          <div className="menu-shell">
-            <div className="tabs" role="tablist" aria-label="Menu categories">
-              {Object.entries(menu).map(([id, category]) => (
-                <button
-                  className={activeCategory === id ? 'active' : ''}
-                  key={id}
-                  type="button"
-                  role="tab"
-                  aria-selected={activeCategory === id}
-                  onClick={() => setActiveCategory(id)}
-                >
-                  {category.label}
-                </button>
-              ))}
-            </div>
-
-            <div className="menu-list">
-              {activeMenu.items.map(([name, description, price]) => (
-                <article className="menu-card" key={name}>
-                  <div>
-                    <h3>{name}</h3>
-                    <p>{description}</p>
-                  </div>
-                  <strong>{price}€</strong>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="experience section-pad">
-          <article>
-            <span>01</span>
-            <h3>Elegant without feeling stiff.</h3>
-            <p>Warm light, calm spacing, and focused content make the page feel more premium on every screen.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>Responsive by design.</h3>
-            <p>The navigation, menu tabs, cards, and contact area adapt cleanly from desktop to phone.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>Fast React structure.</h3>
-            <p>Repeated content now comes from arrays, making future menu and copy updates much easier.</p>
-          </article>
-        </section>
-
-        <section className="reviews section-pad" id="reviews">
-          <div className="section-heading">
-            <p className="eyebrow">Reviews</p>
-            <h2>What guests come back for.</h2>
-          </div>
-          <div className="review-grid">
-            {reviews.map(([author, quote]) => (
-              <article className="review" key={author}>
-                <div className="stars">★★★★★</div>
-                <p>{quote}</p>
-                <strong>{author}</strong>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="contact" id="contact">
-          <div className="contact-panel section-pad">
-            <p className="eyebrow">Visit us</p>
-            <h2>Leof. Agias Varvaras 60, Paleo Faliro.</h2>
-            <div className="contact-grid">
-              <div>
-                <span>Hours</span>
-                <p>Mon-Fri 12:00-23:00<br />Sat 12:00-24:00<br />Sun 12:00-23:00</p>
-              </div>
-              <div>
-                <span>Reserve</span>
-                <p><a href="tel:+30210XXXXXXX">Call for a table</a><br /><a href="https://www.instagram.com/fuzhou.garden" target="_blank" rel="noreferrer">@fuzhou.garden</a></p>
-              </div>
-            </div>
-            <a className="button primary" href="https://www.google.com/maps/dir//FUZHOU+GARDEN+%E7%A6%8F%E5%B7%9E+%E8%8A%B1%E5%9B%AD,+Leof.+Agias+Varvaras+60,+Paleo+Faliro+175+63" target="_blank" rel="noreferrer">
-              Open directions
-            </a>
-          </div>
-          <iframe
-            title="Fuzhou Garden location"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3148!2d23.7139632!3d37.9217028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a1bc2c9e5b0187:0x44c90f58ca6b2cfe!2sFUZHOU%20GARDEN%20%E7%A6%8F%E5%B7%9E%20%E8%8A%B1%E5%9B%AD!5e0!3m2!1sel!2sgr!4v1"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            allowFullScreen
-          />
-        </section>
-      </main>
-
-      <footer className="site-footer">
-        <div className="footer-main">
-          <a className="footer-brand" href="#top" aria-label="Fuzhou Garden home">
-            <img src="/fuzhou-garden-logo.jpg" alt="" />
+        <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
+          <a className="brand" href="#top" aria-label={t('aria.brand_home')}>
+            <img className="brand-logo" src="/fuzhou-garden-logo.jpg" alt="" />
             <span>
               <strong>Fuzhou Garden</strong>
-              <small>Premium Chinese kitchen</small>
+              <small>Chinese &amp; Sushi Restaurant</small>
             </span>
           </a>
 
-          <div className="footer-columns">
-            <div>
-              <span className="footer-label">Visit</span>
-              <p>Leof. Agias Varvaras 60<br />Paleo Faliro, Athens</p>
+          <button
+            className="menu-toggle"
+            type="button"
+            aria-label={t('aria.toggle_nav')}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            <span />
+            <span />
+          </button>
+
+          <nav className="site-nav" aria-label={t('aria.primary_nav')}>
+            {NAV_IDS.map((id) => (
+              <a key={id} href={`#${id}`} onClick={() => setMenuOpen(false)}>
+                {t(`nav.${id}`)}
+              </a>
+            ))}
+            <span className="nav-actions">
+              <LanguageToggle />
+              <a className="nav-call" href="tel:+30210XXXXXXX" onClick={() => setMenuOpen(false)}>
+                <PhoneIcon />
+                <span>{t('nav.call')}</span>
+              </a>
+              <a
+                className="nav-action"
+                href="https://www.instagram.com/fuzhou.garden"
+                target="_blank"
+                rel="noreferrer"
+                aria-label={t('aria.instagram')}
+              >
+                <InstagramIcon />
+              </a>
+            </span>
+          </nav>
+        </header>
+
+        <main id="top">
+          <section className="hero section-pad">
+            <div className="hero-copy">
+              <p className="eyebrow">{t('hero.badge')}</p>
+              <h1>{t('hero.title')}</h1>
+              <p className="hero-text">{t('hero.description')}</p>
+              <div className="hero-actions">
+                <a className="button primary" href="#menu">{t('hero.cta_menu')}</a>
+                <a className="button secondary" href="#contact">{t('hero.cta_visit')}</a>
+              </div>
             </div>
-            <div>
-              <span className="footer-label">Hours</span>
-              <p>Mon-Fri 12:00-23:00<br />Sat 12:00-24:00<br />Sun 12:00-23:00</p>
+            <div className="hero-visual">
+              <WokVisual />
             </div>
+          </section>
+
+          <section className="ticker" aria-label={t('aria.specialties')}>
             <div>
-              <span className="footer-label">Reserve</span>
-              <p><a href="tel:+30210XXXXXXX">Call for a table</a><br /><a href="https://www.instagram.com/fuzhou.garden" target="_blank" rel="noreferrer">@fuzhou.garden</a></p>
+              {tickerItems.map((item, i) => (
+                <span key={i}>{item}</span>
+              ))}
+            </div>
+          </section>
+
+          <section className="about section-pad" id="about">
+            <div>
+              <p className="eyebrow">{t('about.eyebrow')}</p>
+              <h2>{t('about.title')}</h2>
+            </div>
+            <div className="about-body">
+              <p>{t('about.body')}</p>
+              <div className="highlight-grid">
+                {tr.highlights.map(([title, text]) => (
+                  <article className="highlight" key={title}>
+                    <strong>{title}</strong>
+                    <span>{text}</span>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="menu section-pad" id="menu">
+            <div className="section-heading">
+              <p className="eyebrow">{t('menu.eyebrow')}</p>
+              <h2>{t('menu.title')}</h2>
+            </div>
+            <div className="menu-shell">
+              <div className="tabs" role="tablist" aria-label={t('aria.menu_categories')}>
+                {Object.entries(menuCategories).map(([id, cat]) => (
+                  <button
+                    className={activeCategory === id ? 'active' : ''}
+                    key={id}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeCategory === id}
+                    onClick={() => setActiveCategory(id)}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+              <div className="menu-list">
+                {activeMenuItems.map(([name, description, price]) => (
+                  <article className="menu-card" key={name}>
+                    <div>
+                      <h3>{name}</h3>
+                      <p>{description}</p>
+                    </div>
+                    <strong>{price}€</strong>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="experience section-pad">
+            {tr.experience.map(([num, title, text]) => (
+              <article key={num}>
+                <span>{num}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </section>
+
+          <section className="reviews section-pad" id="reviews">
+            <div className="section-heading">
+              <p className="eyebrow">{t('reviews.eyebrow')}</p>
+              <h2>{t('reviews.title')}</h2>
+            </div>
+            <div className="review-grid">
+              {tr.reviews.items.map(([author, quote]) => (
+                <article className="review" key={author}>
+                  <div className="stars">★★★★★</div>
+                  <p>{quote}</p>
+                  <strong>{author}</strong>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="contact" id="contact">
+            <div className="contact-panel section-pad">
+              <p className="eyebrow">{t('contact.eyebrow')}</p>
+              <h2>{t('contact.address')}</h2>
+              <div className="contact-grid">
+                <div>
+                  <span>{t('contact.hours_label')}</span>
+                  <p>
+                    {tr.contact.hours.map((line, i) => (
+                      <span key={i}>{line}{i < tr.contact.hours.length - 1 && <br />}</span>
+                    ))}
+                  </p>
+                </div>
+                <div>
+                  <span>{t('contact.reserve_label')}</span>
+                  <p>
+                    <a href="tel:+30210XXXXXXX">{t('contact.call_table')}</a>
+                    <br />
+                    <a href="https://www.instagram.com/fuzhou.garden" target="_blank" rel="noreferrer">@fuzhou.garden</a>
+                  </p>
+                </div>
+              </div>
+              <a
+                className="button primary"
+                href="https://www.google.com/maps/dir//FUZHOU+GARDEN+%E7%A6%8F%E5%B7%9E+%E8%8A%B1%E5%9B%AD,+Leof.+Agias+Varvaras+60,+Paleo+Faliro+175+63"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {t('contact.directions')}
+              </a>
+            </div>
+            <iframe
+              title={t('aria.map')}
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3148!2d23.7139632!3d37.9217028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a1bc2c9e5b0187:0x44c90f58ca6b2cfe!2sFUZHOU%20GARDEN%20%E7%A6%8F%E5%B7%9E%20%E8%8A%B1%E5%9B%AD!5e0!3m2!1sel!2sgr!4v1"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </section>
+        </main>
+
+        <footer className="site-footer">
+          <div className="footer-main">
+            <a className="footer-brand" href="#top" aria-label={t('aria.brand_home')}>
+              <img src="/fuzhou-garden-logo.jpg" alt="" />
+              <span>
+                <strong>Fuzhou Garden</strong>
+                <small>{t('footer.tagline')}</small>
+              </span>
+            </a>
+            <div className="footer-columns">
+              <div>
+                <span className="footer-label">{t('footer.visit_label')}</span>
+                <p>
+                  {tr.footer.address.map((line, i) => (
+                    <span key={i}>{line}{i < tr.footer.address.length - 1 && <br />}</span>
+                  ))}
+                </p>
+              </div>
+              <div>
+                <span className="footer-label">{t('footer.hours_label')}</span>
+                <p>
+                  {tr.footer.hours.map((line, i) => (
+                    <span key={i}>{line}{i < tr.footer.hours.length - 1 && <br />}</span>
+                  ))}
+                </p>
+              </div>
+              <div>
+                <span className="footer-label">{t('footer.reserve_label')}</span>
+                <p>
+                  <a href="tel:+30210XXXXXXX">{t('footer.call_table')}</a>
+                  <br />
+                  <a href="https://www.instagram.com/fuzhou.garden" target="_blank" rel="noreferrer">@fuzhou.garden</a>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+          <div className="footer-bottom">
+            <span>{t('footer.copyright')}</span>
+            <span>{t('footer.location')}</span>
+          </div>
+        </footer>
 
-        <div className="footer-bottom">
-          <span>(c) 2026 Fuzhou Garden</span>
-          <span>Paleo Faliro - Athens</span>
         </div>
-      </footer>
       </div>
     </>
   )
