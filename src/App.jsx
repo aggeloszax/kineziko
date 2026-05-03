@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import './App.css'
+import SplashScreen from './SplashScreen'
+import logo from '/fuzhou-garden-logo.jpg'
 
 const navItems = [
   ['about', 'About'],
@@ -61,10 +63,8 @@ const reviews = [
 
 function InstagramIcon() {
   return (
-    <svg className="instagram-icon" viewBox="0 0 24 24" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="1.2" />
+    <svg className="instagram-icon" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
     </svg>
   )
 }
@@ -79,99 +79,129 @@ function PhoneIcon() {
 
 function WokVisual() {
   return (
-    <div className="premium-wok-scene" aria-label="Signature wok presentation">
+    <div className="premium-wok-scene" aria-label="Handmade baozi presentation">
       <div className="wok-outer-glow" />
       <div className="wok-frame">
         <div className="wok-inner">
-          <svg className="premium-wok" viewBox="0 0 520 520" role="img" aria-labelledby="wok-title">
-            <title id="wok-title">Premium cast iron wok with rising steam</title>
+          <svg className="baozi-svg" viewBox="0 0 400 400" role="img" aria-labelledby="baozi-title">
+            <title id="baozi-title">Premium handmade steamed baozi with rising steam</title>
             <defs>
-              <radialGradient id="wokBowlGradient" cx="50%" cy="58%" r="62%">
-                <stop offset="0%" stopColor="#050505" />
-                <stop offset="38%" stopColor="#1a1a1a" />
-                <stop offset="70%" stopColor="#252525" />
-                <stop offset="100%" stopColor="#2d2d2d" />
+              <radialGradient id="baoziSurface" cx="38%" cy="30%" r="70%">
+                <stop offset="0%" stopColor="#faf6f0" />
+                <stop offset="32%" stopColor="#f0e8dc" />
+                <stop offset="66%" stopColor="#e0d0be" />
+                <stop offset="100%" stopColor="#d4c4b0" />
               </radialGradient>
-              <radialGradient id="wokDepthGradient" cx="50%" cy="66%" r="47%">
-                <stop offset="0%" stopColor="#000000" stopOpacity="0.72" />
-                <stop offset="45%" stopColor="#0b0b0b" stopOpacity="0.42" />
-                <stop offset="100%" stopColor="#2d2d2d" stopOpacity="0" />
+              <linearGradient id="parchmentGrad" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stopColor="#f5f0e8" />
+                <stop offset="100%" stopColor="#ede6d8" />
+              </linearGradient>
+              <radialGradient id="subSurface" cx="50%" cy="84%" r="56%">
+                <stop offset="0%" stopColor="#ffb89a" stopOpacity="0.14" />
+                <stop offset="55%" stopColor="#ffb89a" stopOpacity="0.06" />
+                <stop offset="100%" stopColor="#ffb89a" stopOpacity="0" />
               </radialGradient>
-              <radialGradient id="heatGlow" cx="50%" cy="66%" r="34%">
-                <stop offset="0%" stopColor="#ff6b2b" stopOpacity="0.22" />
-                <stop offset="52%" stopColor="#ff6b2b" stopOpacity="0.11" />
-                <stop offset="100%" stopColor="#ff6b2b" stopOpacity="0" />
+              <radialGradient id="heatGlowAmber" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#ff8c42" stopOpacity="0.09" />
+                <stop offset="60%" stopColor="#ff8c42" stopOpacity="0.04" />
+                <stop offset="100%" stopColor="#ff8c42" stopOpacity="0" />
               </radialGradient>
-              <linearGradient id="rimLacquer" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="#cc2200" />
-                <stop offset="54%" stopColor="#c0311a" />
-                <stop offset="100%" stopColor="#8b1500" />
-              </linearGradient>
-              <linearGradient id="rimHighlight" x1="0" x2="1" y1="0" y2="0">
-                <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
-                <stop offset="24%" stopColor="#ffffff" stopOpacity="0.72" />
-                <stop offset="56%" stopColor="#d4a835" stopOpacity="0.86" />
-                <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
-              </linearGradient>
-              <linearGradient id="handleMetal" x1="0" x2="1" y1="0" y2="1">
-                <stop offset="0%" stopColor="#4b4b4b" />
-                <stop offset="55%" stopColor="#181818" />
-                <stop offset="100%" stopColor="#050505" />
-              </linearGradient>
-              <filter id="wokShadow" x="-20%" y="-20%" width="140%" height="150%">
-                <feDropShadow dx="0" dy="24" stdDeviation="18" floodColor="#000000" floodOpacity="0.48" />
-              </filter>
-              <filter id="wokTexture" x="-8%" y="-8%" width="116%" height="116%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7" />
-                <feColorMatrix type="saturate" values="0" />
-                <feComponentTransfer>
-                  <feFuncA type="table" tableValues="0 0.11" />
+              <filter id="baoziTexture" x="-4%" y="-4%" width="108%" height="108%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" seed="12" result="noise" />
+                <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise" />
+                <feComponentTransfer in="grayNoise" result="subtleNoise">
+                  <feFuncA type="table" tableValues="0 0.03" />
                 </feComponentTransfer>
-                <feBlend mode="overlay" in2="SourceGraphic" />
+                <feBlend mode="overlay" in="subtleNoise" in2="SourceGraphic" />
+              </filter>
+              <filter id="specularBlur" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="6" />
+              </filter>
+              <filter id="parchShadow" x="-14%" y="-25%" width="128%" height="170%">
+                <feDropShadow dx="0" dy="10" stdDeviation="12" floodColor="#000000" floodOpacity="0.36" />
               </filter>
               <filter id="steamBlur">
-                <feGaussianBlur stdDeviation="0.45" />
+                <feGaussianBlur stdDeviation="0.6" />
               </filter>
             </defs>
 
-            <g className="wok-steam" filter="url(#steamBlur)">
-              <path className="steam-wisp steam-wisp-1" d="M220 222 C195 185 246 157 220 116 C204 91 220 70 238 54" />
-              <path className="steam-wisp steam-wisp-2" d="M262 220 C290 183 238 152 270 110 C290 84 278 64 260 44" />
-              <path className="steam-wisp steam-wisp-3" d="M303 225 C334 190 287 158 316 122 C338 95 326 75 342 55" />
-              <path className="steam-wisp steam-wisp-4" d="M180 236 C158 202 193 176 175 142 C160 113 177 91 194 76" />
+            {/* Ambient heat pool */}
+            <ellipse cx="200" cy="334" rx="98" ry="22" fill="url(#heatGlowAmber)" />
+
+            {/* Parchment paper */}
+            <g filter="url(#parchShadow)">
+              <rect x="112" y="276" width="176" height="50" rx="3" fill="url(#parchmentGrad)" />
+              <line x1="162" y1="277" x2="160" y2="325" stroke="rgba(172,152,128,0.2)" strokeWidth="0.8" />
+              <line x1="238" y1="277" x2="240" y2="325" stroke="rgba(172,152,128,0.2)" strokeWidth="0.8" />
             </g>
 
-            <g className="wok-body" filter="url(#wokShadow)">
-              <path
-                className="wok-handle wok-handle-left"
-                d="M74 290 C39 286 22 268 25 244 C28 224 48 214 78 222 C93 226 99 242 93 257 C88 271 83 280 74 290Z"
-              />
-              <path
-                className="wok-handle wok-handle-right"
-                d="M446 290 C481 286 498 268 495 244 C492 224 472 214 442 222 C427 226 421 242 427 257 C432 271 437 280 446 290Z"
-              />
-              <ellipse className="wok-rim-shadow" cx="260" cy="279" rx="187" ry="63" />
-              <path className="wok-bowl" d="M78 264 C103 399 171 459 260 459 C349 459 417 399 442 264 C391 309 130 309 78 264Z" />
-              <ellipse className="wok-cast-iron" cx="260" cy="264" rx="184" ry="70" />
-              <ellipse className="wok-depth" cx="260" cy="278" rx="139" ry="46" />
-              <ellipse className="wok-heat" cx="260" cy="306" rx="96" ry="34" />
-              <ellipse className="wok-texture" cx="260" cy="276" rx="166" ry="59" filter="url(#wokTexture)" />
-              <path className="wok-rim" d="M77 262 C113 214 407 214 443 262 C413 314 107 314 77 262Z" />
-              <path className="wok-rim-inner" d="M106 263 C136 236 384 236 414 263 C384 291 136 291 106 263Z" />
-              <path className="wok-specular" d="M133 247 C197 219 320 218 387 244" />
-              <path className="wok-specular-small" d="M170 282 C217 298 303 300 350 281" />
+            {/* Base shadow ellipse under dome */}
+            <ellipse cx="200" cy="280" rx="88" ry="11" fill="rgba(0,0,0,0.22)" />
+
+            {/* Baozi dome */}
+            <path
+              className="baozi-dome"
+              d="M 116 276 C 107 252 104 210 114 174 C 124 142 146 122 174 114 C 186 110 194 108 202 108 C 212 108 222 113 238 124 C 258 140 276 164 284 196 C 292 225 292 260 288 276 C 256 291 144 291 116 276 Z"
+              fill="url(#baoziSurface)"
+              filter="url(#baoziTexture)"
+            />
+
+            {/* Subsurface scattering */}
+            <path
+              d="M 116 276 C 107 252 104 210 114 174 C 124 142 146 122 174 114 C 186 110 194 108 202 108 C 212 108 222 113 238 124 C 258 140 276 164 284 196 C 292 225 292 260 288 276 C 256 291 144 291 116 276 Z"
+              fill="url(#subSurface)"
+            />
+
+            {/* Specular highlight — upper-left lit oval */}
+            <ellipse
+              className="baozi-specular"
+              cx="165"
+              cy="162"
+              rx="46"
+              ry="28"
+              fill="#ffffff"
+              fillOpacity="0.62"
+              filter="url(#specularBlur)"
+              transform="rotate(-22 165 162)"
+            />
+
+            {/* Pleats radiating from twist center */}
+            <g stroke="rgba(168,144,114,0.66)" fill="none" strokeLinecap="round">
+              <path d="M 202 112 Q 188 123 174 146" strokeWidth="1.9" />
+              <path d="M 202 112 Q 184 116 168 130" strokeWidth="1.7" />
+              <path d="M 202 112 Q 182 109 168 113" strokeWidth="1.5" />
+              <path d="M 202 112 Q 190 104 178 102" strokeWidth="1.3" />
+              <path d="M 202 112 Q 196 103 192 97" strokeWidth="1.1" />
+              <path d="M 202 112 Q 208 104 213 98" strokeWidth="1.1" />
+              <path d="M 202 112 Q 215 107 226 106" strokeWidth="1.3" />
+              <path d="M 202 112 Q 220 111 235 120" strokeWidth="1.5" />
+              <path d="M 202 112 Q 220 121 230 138" strokeWidth="1.7" />
+            </g>
+
+            {/* Twist center nub */}
+            <circle cx="202" cy="112" r="3.8" fill="rgba(148,120,90,0.75)" />
+
+            {/* Steam wisps */}
+            <g filter="url(#steamBlur)">
+              <path className="steam-wisp steam-wisp-1" d="M 186 104 C 177 83 196 64 181 44 C 170 30 175 20 173 12" />
+              <path className="steam-wisp steam-wisp-2" d="M 200 100 C 217 79 192 58 211 38 C 222 24 215 14 209 6" />
+              <path className="steam-wisp steam-wisp-3" d="M 216 105 C 231 85 213 65 230 46 C 241 32 236 22 233 14" />
+              <path className="steam-wisp steam-wisp-4" d="M 194 107 C 181 87 198 68 179 50 C 167 36 173 25 171 16" />
             </g>
           </svg>
         </div>
       </div>
       <div className="hero-note">
-        <span>Wok-fired kitchen</span>
+        <span>Handmade dim sum</span>
       </div>
     </div>
   )
 }
 
 function App() {
+  const [splashDone, setSplashDone] = useState(
+    () => sessionStorage.getItem('splash_seen') === '1'
+  )
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeCategory, setActiveCategory] = useState('starters')
@@ -192,12 +222,16 @@ function App() {
 
   return (
     <>
+      {!splashDone && (
+        <SplashScreen logo={logo} name="Fuzhou Garden" onComplete={() => setSplashDone(true)} />
+      )}
+      <div style={{ opacity: splashDone ? 1 : 0, transition: 'opacity 0.5s ease' }}>
       <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
         <a className="brand" href="#top" aria-label="Fuzhou Garden home">
           <img className="brand-logo" src="/fuzhou-garden-logo.jpg" alt="" />
           <span>
             <strong>Fuzhou Garden</strong>
-            <small>Chinese kitchen</small>
+            <small>Chinese &amp; Sushi Restaurant</small>
           </span>
         </a>
 
@@ -419,6 +453,7 @@ function App() {
           <span>Paleo Faliro - Athens</span>
         </div>
       </footer>
+      </div>
     </>
   )
 }

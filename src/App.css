@@ -369,8 +369,8 @@ h2 {
   aspect-ratio: 1;
   place-items: center;
   opacity: 0;
-  transform: scale(0.85);
-  animation: wokEntry 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards;
+  transform: scale(0.8);
+  animation: wokEntry 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s forwards;
 }
 
 .wok-outer-glow {
@@ -392,15 +392,28 @@ h2 {
   width: 100%;
   height: 100%;
   place-items: center;
-  border: 1px solid rgba(212, 168, 53, 0.15);
+  border: 1px solid rgba(212, 168, 53, 0.2);
   border-radius: 50%;
   background:
-    radial-gradient(circle at 50% 48%, #0d1f1a 0 28%, #071611 62%, #050e0a 100%);
+    radial-gradient(circle at 50% 48%, #1a2e20 0%, #0a1a12 38%, #060d08 100%);
   box-shadow:
     inset 0 0 44px rgba(212, 168, 53, 0.07),
     inset 0 -42px 90px rgba(0, 0, 0, 0.44),
-    0 34px 84px rgba(0, 0, 0, 0.28);
+    0 34px 84px rgba(0, 0, 0, 0.28),
+    0 0 60px rgba(212, 168, 53, 0.08);
   overflow: hidden;
+}
+
+.wok-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-image:
+    linear-gradient(rgba(253, 248, 238, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(253, 248, 238, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
 }
 
 .wok-frame::before {
@@ -416,112 +429,56 @@ h2 {
   position: relative;
   width: 94%;
   transform: translateY(0) translateZ(0);
-  animation: wokFloat 4s ease-in-out infinite alternate;
+  animation: wokFloat 5s ease-in-out infinite alternate;
   will-change: transform;
 }
 
-.premium-wok {
+.baozi-svg {
   display: block;
   width: 100%;
   height: auto;
   overflow: visible;
 }
 
-.wok-handle {
-  fill: url("#handleMetal");
-  stroke: rgba(212, 168, 53, 0.18);
-  stroke-width: 2;
-}
-
-.wok-rim-shadow {
-  fill: rgba(0, 0, 0, 0.44);
-}
-
-.wok-bowl {
-  fill: url("#wokBowlGradient");
-  stroke: rgba(253, 248, 238, 0.08);
-  stroke-width: 1.2;
-}
-
-.wok-cast-iron {
-  fill: url("#wokBowlGradient");
-}
-
-.wok-depth {
-  fill: url("#wokDepthGradient");
-}
-
-.wok-heat {
-  fill: url("#heatGlow");
-}
-
-.wok-texture {
-  fill: rgba(255, 255, 255, 0.1);
-  opacity: 0.82;
-  mix-blend-mode: overlay;
-}
-
-.wok-rim {
-  fill: url("#rimLacquer");
-  stroke: rgba(255, 210, 142, 0.2);
-  stroke-width: 1.5;
-}
-
-.wok-rim-inner {
-  fill: rgba(5, 5, 5, 0.54);
-  stroke: rgba(253, 248, 238, 0.06);
+.baozi-dome {
+  stroke: rgba(200, 184, 162, 0.12);
   stroke-width: 1;
 }
 
-.wok-specular,
-.wok-specular-small {
-  fill: none;
-  stroke: url("#rimHighlight");
-  stroke-linecap: round;
-  filter: drop-shadow(0 0 5px rgba(212, 168, 53, 0.34));
-  animation: rimShimmer 3s ease-in-out infinite;
+.baozi-specular {
+  animation: highlightBreathe 3s ease-in-out infinite;
   will-change: opacity;
-}
-
-.wok-specular {
-  stroke-width: 6;
-  opacity: 0.88;
-}
-
-.wok-specular-small {
-  stroke-width: 2.5;
-  opacity: 0.28;
 }
 
 .steam-wisp {
   fill: none;
-  stroke: rgba(253, 248, 238, 0.62);
+  stroke: rgba(255, 255, 255, 0.5);
   stroke-linecap: round;
-  stroke-width: 2.3;
+  stroke-width: 2;
   opacity: 0;
   transform: translateY(0);
-  animation: steamRise 8s ease-in infinite;
+  animation: steamRise 6s ease-in infinite;
   will-change: transform, opacity;
 }
 
 .steam-wisp-1 {
-  animation-duration: 8s;
+  animation-duration: 6s;
   animation-delay: 0s;
 }
 
 .steam-wisp-2 {
-  animation-duration: 7.2s;
+  animation-duration: 7s;
   animation-delay: 1.5s;
 }
 
 .steam-wisp-3 {
-  animation-duration: 9s;
-  animation-delay: 2.8s;
+  animation-duration: 5.5s;
+  animation-delay: 3s;
 }
 
 .steam-wisp-4 {
-  animation-duration: 6.6s;
-  animation-delay: 4.1s;
+  animation-duration: 6.8s;
+  animation-delay: 4.5s;
 }
 
 .hero-note {
@@ -908,7 +865,7 @@ h2 {
     transform: translateY(0) translateZ(0);
   }
   to {
-    transform: translateY(-8px) translateZ(0);
+    transform: translateY(-10px) translateZ(0);
   }
 }
 
@@ -921,24 +878,27 @@ h2 {
 @keyframes steamRise {
   0% {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px);
   }
-  14% {
-    opacity: 0.6;
+  12% {
+    opacity: 0.5;
+  }
+  85% {
+    opacity: 0.2;
   }
   100% {
     opacity: 0;
-    transform: translateY(-40px);
+    transform: translateY(-72px);
   }
 }
 
-@keyframes rimShimmer {
+@keyframes highlightBreathe {
   0%,
   100% {
-    opacity: 0.46;
+    opacity: 0.5;
   }
   50% {
-    opacity: 1;
+    opacity: 0.82;
   }
 }
 
