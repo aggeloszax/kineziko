@@ -3,13 +3,14 @@ import './App.css'
 import logo from '/fuzhou-garden-logo.jpg'
 import { useLanguage } from './context/LanguageContext'
 import LanguageToggle from './components/LanguageToggle'
-import SplashScreen, { SPLASH_KEY } from './SplashScreen'
+import SplashScreen from './SplashScreen'
 
-// One-time cleanup of stale splash keys from older versions
+// Clean up any persisted splash flags so it always plays on refresh
 try {
-  ;['splash_seen', 'fz_splash_seen', 'fz_splash_seen_v2'].forEach((k) =>
+  ;['splash_seen', 'fz_splash_seen', 'fz_splash_seen_v2', 'fz_splash_seen_v3'].forEach((k) => {
     localStorage.removeItem(k)
-  )
+    sessionStorage.removeItem(k)
+  })
 } catch {}
 
 const NAV_IDS = ['about', 'buffet', 'visit']
@@ -58,9 +59,7 @@ function App() {
   const { t, tr, fading } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [splashDone, setSplashDone] = useState(() => {
-    try { return localStorage.getItem(SPLASH_KEY) === '1' } catch { return false }
-  })
+  const [splashDone, setSplashDone] = useState(false)
   const rootRef = useRef(null)
 
   useEffect(() => {
