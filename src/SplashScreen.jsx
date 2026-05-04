@@ -1,33 +1,54 @@
 import { useEffect, useRef } from 'react'
 
+export const SPLASH_KEY = 'fz_splash_seen_v3'
+
 export default function SplashScreen({ logo, name, onComplete }) {
   const overlayRef = useRef(null)
+  const doneRef = useRef(false)
 
   useEffect(() => {
+    console.log('[Splash] mounted')
     document.body.style.overflow = 'hidden'
 
-    const exitTimer = setTimeout(() => {
+    const finish = () => {
+      if (doneRef.current) return
+      doneRef.current = true
+      console.log('[Splash] finishing, persisting flag')
+      try {
+        localStorage.setItem(SPLASH_KEY, '1')
+      } catch {}
+      document.body.style.overflow = ''
+      onComplete()
+    }
+
+    let removeTimer
+    const fadeTimer = setTimeout(() => {
       const el = overlayRef.current
-      if (!el) return
-      el.style.opacity = '0'
-
-      const removeTimer = setTimeout(() => {
-        document.body.style.overflow = ''
-        sessionStorage.setItem('splash_seen', '1')
-        onComplete()
-      }, 500)
-
-      return () => clearTimeout(removeTimer)
+      if (el) el.style.opacity = '0'
+      removeTimer = setTimeout(finish, 500)
     }, 2200)
 
     return () => {
-      clearTimeout(exitTimer)
-      document.body.style.overflow = ''
+      clearTimeout(fadeTimer)
+      clearTimeout(removeTimer)
     }
   }, [onComplete])
 
   return (
-    <div ref={overlayRef} style={styles.overlay}>
+    <div
+      ref={overlayRef}
+      style={styles.overlay}
+      onClick={() => {
+        // Allow user to skip by clicking
+        if (doneRef.current) return
+        doneRef.current = true
+        try {
+          localStorage.setItem(SPLASH_KEY, '1')
+        } catch {}
+        document.body.style.overflow = ''
+        onComplete()
+      }}
+    >
       <div style={styles.glow} />
       <div style={styles.center}>
         <img src={logo} alt={name} style={styles.logo} />
@@ -43,19 +64,21 @@ const styles = {
   overlay: {
     position: 'fixed',
     inset: 0,
-    zIndex: 9999,
+    zIndex: 99999,
     background: '#060d08',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     transition: 'opacity 0.5s ease',
+    cursor: 'pointer',
   },
   glow: {
     position: 'absolute',
     width: '480px',
     height: '480px',
     borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(212,168,53,0.08) 0%, transparent 70%)',
+    background:
+      'radial-gradient(circle, rgba(212,168,53,0.08) 0%, transparent 70%)',
     filter: 'blur(80px)',
     pointerEvents: 'none',
   },
@@ -72,7 +95,8 @@ const styles = {
     borderRadius: '50%',
     objectFit: 'cover',
     opacity: 0,
-    animation: 'splashLogo 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards',
+    animation:
+      'splashLogo 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards',
   },
   name: {
     margin: 0,
