@@ -17,9 +17,7 @@ export const translations = {
       eyebrow: 'Σχετικά',
       title: 'Φτιαγμένο για γενναιόδωρα τραπέζια.',
       paragraphs: [
-        'Στο Fuzhou Garden συνεχίζουμε την παράδοση της επαρχίας Φουτζιάν — αρωματικοί ζωμοί, λεπτοφυή dim sum, φρέσκα θαλασσινά και ισορροπημένες σάλτσες που σέβονται κάθε υλικό.',
-        'Η οικογενειακή μας κουζίνα μαγειρεύει καθημερινά από το μηδέν, με τεχνικές που μαθεύτηκαν από γενιά σε γενιά και πρώτες ύλες επιλεγμένες με προσοχή.',
-        'Σας υποδεχόμαστε στο Παλαιό Φάληρο για ένα τραπέζι ζεστό, γενναιόδωρο και αυθεντικά κινεζικό.',
+        'Μαγειρεύουμε κάθε μέρα από την αρχή. Χειροποίητα, φρέσκα, με προσοχή στη λεπτομέρεια. Η κουζίνα μας έχει γεύση που δεν βρίσκεις εύκολα, και ατμόσφαιρα που σε κάνει να επιστρέφεις. Ελάτε να φάτε καλά στο Παλαιό Φάληρο.',
       ],
     },
     buffet: {
@@ -106,9 +104,7 @@ export const translations = {
       eyebrow: 'About',
       title: 'Built for generous tables.',
       paragraphs: [
-        'At Fuzhou Garden we carry the tradition of Fujian province — fragrant broths, delicate dim sum, fresh seafood, and balanced sauces that honor every ingredient.',
-        'Our family kitchen cooks from scratch every day, combining techniques passed down through generations with carefully selected ingredients.',
-        'We welcome you in Paleo Faliro for a warm, generous, authentically Chinese table.',
+        "We cook from scratch every day. Handmade, fresh, with attention to detail. Flavors you won't easily find elsewhere, and an atmosphere that keeps you coming back. Come eat well in Paleo Faliro.",
       ],
     },
     buffet: {
