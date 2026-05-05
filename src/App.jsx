@@ -147,6 +147,17 @@ function App() {
                 </li>
               ))}
             </ul>
+            <div className="nav-drawer-actions">
+              <LanguageToggle />
+              <a
+                className="btn btn-primary nav-drawer-call"
+                href={PHONE_TEL}
+                onClick={() => setMenuOpen(false)}
+              >
+                <PhoneIcon />
+                <span>{t('nav.call')}</span>
+              </a>
+            </div>
           </nav>
 
           <div className="nav-actions">
