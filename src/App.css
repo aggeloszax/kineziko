@@ -1188,7 +1188,21 @@ ul {
   }
 
   .visit-info {
-    align-items: stretch;
+    align-items: center;
+    text-align: center;
+  }
+
+  .visit-info .section-title {
+    text-align: center;
+  }
+
+  .visit-details {
+    justify-items: center;
+  }
+
+  .visit-detail {
+    justify-items: center;
+    width: 100%;
   }
 
   .buffet-grid {
