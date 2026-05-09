@@ -15,7 +15,6 @@ try {
 
 const NAV_IDS = ['about', 'buffet', 'visit']
 const PHONE_TEL = 'tel:2109889688'
-const PHONE_DISPLAY = '210 988 9688'
 const MAPS_URL =
   'https://maps.google.com/?q=Λεωφ.+Αγίας+Βαρβάρας+60,+Παλαιό+Φάληρο'
 const MAPS_EMBED =
@@ -303,9 +302,6 @@ function App() {
               >
                 <PhoneIcon />
                 <span>{t('buffet.cta')}</span>
-              </a>
-              <a className="buffet-phone-link" href={PHONE_TEL}>
-                {PHONE_DISPLAY}
               </a>
             </div>
           </div>
