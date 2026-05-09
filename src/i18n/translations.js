@@ -76,6 +76,9 @@ export const translations = {
     footer: {
       tagline: 'Authentic κινεζική κουζίνα',
       copyright: '© 2026 Fuzhou Garden · Παλαιό Φάληρο',
+      privacy: 'Πολιτική Απορρήτου',
+      terms: 'Όροι Χρήσης',
+      cookies: 'Cookies',
     },
     aria: {
       brand: 'Αρχική σελίδα Fuzhou Garden',
@@ -163,6 +166,9 @@ export const translations = {
     footer: {
       tagline: 'Authentic Chinese kitchen',
       copyright: '© 2026 Fuzhou Garden · Paleo Faliro',
+      privacy: 'Privacy Policy',
+      terms: 'Terms of Use',
+      cookies: 'Cookies',
     },
     aria: {
       brand: 'Fuzhou Garden home',

@@ -3,7 +3,9 @@ import './App.css'
 import logo from '/fuzhou-garden-logo.jpg'
 import { useLanguage } from './context/LanguageContext'
 import LanguageToggle from './components/LanguageToggle'
+import Modal from './components/Modal'
 import SplashScreen from './SplashScreen'
+import { legalContent } from './legalContent'
 
 // Clean up any persisted splash flags so it always plays on refresh
 try {
@@ -59,7 +61,14 @@ function App() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [splashDone, setSplashDone] = useState(false)
+  const [activeLegal, setActiveLegal] = useState(null)
   const rootRef = useRef(null)
+
+  const openLegal = (key) => (e) => {
+    e.preventDefault()
+    setActiveLegal(key)
+  }
+  const activeDoc = activeLegal ? legalContent[activeLegal] : null
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -393,10 +402,28 @@ function App() {
               </a>
             ))}
             <a href={PHONE_TEL}>{t('nav.call')}</a>
+            <a href="#" onClick={openLegal('privacy')}>{t('footer.privacy')}</a>
+            <a href="#" onClick={openLegal('terms')}>{t('footer.terms')}</a>
+            <a href="#" onClick={openLegal('cookies')}>{t('footer.cookies')}</a>
           </nav>
           <div className="footer-copy">{t('footer.copyright')}</div>
         </div>
       </footer>
+
+      <Modal
+        open={!!activeDoc}
+        onClose={() => setActiveLegal(null)}
+        title={activeDoc?.title}
+      >
+        {activeDoc?.sections.map((section, i) => (
+          <section key={i} className="modal-section">
+            {section.heading && <h3>{section.heading}</h3>}
+            {section.paragraphs.map((p, j) => (
+              <p key={j}>{p}</p>
+            ))}
+          </section>
+        ))}
+      </Modal>
     </div>
     </>
   )
