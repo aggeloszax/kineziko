@@ -128,7 +128,7 @@ const styles = {
   name: {
     margin: 0,
     color: '#e2c97a',
-    fontFamily: '"Playfair Display", Georgia, "Times New Roman", serif',
+    fontFamily: '"Ampersand Fallback", "GFS Galatea", Georgia, "Times New Roman", serif',
     fontSize: '1.4rem',
     fontWeight: 500,
     letterSpacing: '0.18em',
@@ -139,7 +139,7 @@ const styles = {
   tagline: {
     margin: 0,
     color: 'rgba(245, 240, 232, 0.6)',
-    fontFamily: '"Inter", system-ui, sans-serif',
+    fontFamily: '"Ampersand Fallback", "GFS Galatea", Georgia, "Times New Roman", serif',
     fontSize: '0.7rem',
     fontWeight: 500,
     letterSpacing: '0.32em',
