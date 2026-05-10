@@ -396,12 +396,6 @@ function App() {
             </span>
           </a>
           <nav className="footer-links" aria-label="Footer navigation">
-            {NAV_IDS.map((id) => (
-              <a key={id} href={`#${id}`}>
-                {t(`nav.${id}`)}
-              </a>
-            ))}
-            <a href={PHONE_TEL}>{t('nav.call')}</a>
             <a href="#" onClick={openLegal('privacy')}>{t('footer.privacy')}</a>
             <a href="#" onClick={openLegal('terms')}>{t('footer.terms')}</a>
             <a href="#" onClick={openLegal('cookies')}>{t('footer.cookies')}</a>
