@@ -6,6 +6,7 @@ import LanguageToggle from './components/LanguageToggle'
 import Modal from './components/Modal'
 import SplashScreen from './SplashScreen'
 import { legalContent } from './legalContent'
+import { FaUserShield, FaFileContract, FaCookieBite } from 'react-icons/fa'
 
 // Clean up any persisted splash flags so it always plays on refresh
 try {
@@ -395,10 +396,31 @@ function App() {
               <small>{t('footer.tagline')}</small>
             </span>
           </a>
-          <nav className="footer-links" aria-label="Footer navigation">
-            <a href="#" onClick={openLegal('privacy')}>{t('footer.privacy')}</a>
-            <a href="#" onClick={openLegal('terms')}>{t('footer.terms')}</a>
-            <a href="#" onClick={openLegal('cookies')}>{t('footer.cookies')}</a>
+          <nav className="footer-links footer-links-icons" aria-label="Footer navigation">
+            <a
+              href="#"
+              onClick={openLegal('privacy')}
+              aria-label={t('footer.privacy')}
+              title={t('footer.privacy')}
+            >
+              <FaUserShield aria-hidden="true" />
+            </a>
+            <a
+              href="#"
+              onClick={openLegal('terms')}
+              aria-label={t('footer.terms')}
+              title={t('footer.terms')}
+            >
+              <FaFileContract aria-hidden="true" />
+            </a>
+            <a
+              href="#"
+              onClick={openLegal('cookies')}
+              aria-label={t('footer.cookies')}
+              title={t('footer.cookies')}
+            >
+              <FaCookieBite aria-hidden="true" />
+            </a>
           </nav>
           <div className="footer-copy">{t('footer.copyright')}</div>
         </div>

@@ -1066,6 +1066,33 @@ ul {
   color: var(--gold);
 }
 
+.footer-links-icons {
+  gap: clamp(18px, 2.4vw, 28px);
+}
+
+.footer-links-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--cream-muted);
+  transition: color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.footer-links-icons a:hover,
+.footer-links-icons a:focus-visible {
+  color: var(--gold);
+  background: rgba(201, 168, 76, 0.08);
+  transform: translateY(-1px);
+}
+
+.footer-links-icons svg {
+  width: 20px;
+  height: 20px;
+}
+
 .footer-copy {
   color: var(--cream-faint);
   font-size: 0.78rem;
